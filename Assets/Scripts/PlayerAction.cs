@@ -45,7 +45,18 @@ public class PlayerAction : MonoBehaviour
             isHorizonMove = false;
 
         //Animation
-        anime.SetInteger("hAxisRaw", (int)h);
-        anime.SetInteger("vAxisRaw", (int)v);
+        if (anime.GetInteger("hAxisRaw") != h)
+        {
+            anime.SetBool("IsChange", true);
+            anime.SetInteger("hAxisRaw", (int)h);
+        }
+
+        else if (anime.GetInteger("vAxisRaw") != v)
+        {
+            anime.SetBool("IsChange", true);
+            anime.SetInteger("vAxisRaw", (int)v);
+        }
+        else
+            anime.SetBool("IsChange", false);
     }
 }
