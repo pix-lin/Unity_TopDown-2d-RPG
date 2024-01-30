@@ -7,7 +7,12 @@ public class PlayerAction : MonoBehaviour
     public float Speed;
     float h;
     float v;
+    bool hDown;
+    bool vDown;
+    bool hUp;
+    bool vUp;
     bool isHorizonMove;
+    Vector2 dirVec;
 
     Rigidbody2D rigid;
     Animator anime;
@@ -21,8 +26,19 @@ public class PlayerAction : MonoBehaviour
     private void FixedUpdate()
     {
         //Move
+        
         Vector2 moveVec = isHorizonMove ? new Vector2(h, 0) : new Vector2(0, v);
         rigid.velocity = moveVec * Speed;
+
+        //Direction
+        if (vDown && v == 1)
+            dirVec = Vector2.up;
+        else if (vDown && v == -1)
+            dirVec = Vector2.down;
+        else if (hDown && h == 1)
+            dirVec = Vector2.right;
+        else if (hDown && h == -1)
+            dirVec = Vector2.left;
     }
 
     // Update is called once per frame
@@ -33,16 +49,18 @@ public class PlayerAction : MonoBehaviour
         v = Input.GetAxisRaw("Vertical");
 
         //Check Button Down & Up
-        bool hDown = Input.GetButtonDown("Horizontal");
-        bool vDown = Input.GetButtonDown("Vertical");
-        bool hUp = Input.GetButtonUp("Horizontal");
-        bool vUp = Input.GetButtonUp("Vertical");
+        hDown = Input.GetButtonDown("Horizontal");
+        vDown = Input.GetButtonDown("Vertical");
+        hUp = Input.GetButtonUp("Horizontal");
+        vUp = Input.GetButtonUp("Vertical");
 
         //Check Horizontal Move
-        if (hDown || vUp)
+        if (hDown)
             isHorizonMove = true;
-        else if (vDown || hUp)
+        else if (vDown)
             isHorizonMove = false;
+        else if (hUp || vUp)
+            isHorizonMove = h != 0;
 
         //Animation
         if (anime.GetInteger("hAxisRaw") != h)
@@ -58,5 +76,8 @@ public class PlayerAction : MonoBehaviour
         }
         else
             anime.SetBool("IsChange", false);
+
+        //Ray
+        Debug.DrawRay(rigid.position, dirVec * 0.7f, new Color(0, 1, 0));
     }
 }
