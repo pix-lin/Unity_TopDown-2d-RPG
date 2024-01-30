@@ -41,6 +41,7 @@ public class PlayerAction : MonoBehaviour
 
         //Ray
         Debug.DrawRay(rigid.position, dirVec * 0.7f, new Color(0, 1, 0));
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("Object"));
     }
 
     // Update is called once per frame
