@@ -16,6 +16,7 @@ public class PlayerAction : MonoBehaviour
 
     Rigidbody2D rigid;
     Animator anime;
+    GameObject scanObject;
 
     private void Awake()
     {
@@ -29,19 +30,15 @@ public class PlayerAction : MonoBehaviour
         Vector2 moveVec = isHorizonMove ? new Vector2(h, 0) : new Vector2(0, v);
         rigid.velocity = moveVec * Speed;
 
-        //Direction
-        if (vDown && v == 1)
-            dirVec = Vector2.up;
-        else if (vDown && v == -1)
-            dirVec = Vector2.down;
-        else if (hDown && h == 1)
-            dirVec = Vector2.right;
-        else if (hDown && h == -1)
-            dirVec = Vector2.left;
-
         //Ray
         Debug.DrawRay(rigid.position, dirVec * 0.7f, new Color(0, 1, 0));
         RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("Object"));
+
+        if (rayHit != null)
+            scanObject = rayHit.collider.gameObject;
+        else
+            scanObject = null;
+
     }
 
     // Update is called once per frame
@@ -65,6 +62,16 @@ public class PlayerAction : MonoBehaviour
         else if (hUp || vUp)
             isHorizonMove = h != 0;
 
+        //Direction
+        if (vDown && v == 1)
+            dirVec = Vector2.up;
+        else if (vDown && v == -1)
+            dirVec = Vector2.down;
+        else if (hDown && h == 1)
+            dirVec = Vector2.right;
+        else if (hDown && h == -1)
+            dirVec = Vector2.left;
+
         //Animation
         if (anime.GetInteger("hAxisRaw") != h)
         {
@@ -79,5 +86,10 @@ public class PlayerAction : MonoBehaviour
         }
         else
             anime.SetBool("IsChange", false);
+
+        //Scan Object
+        if (Input.GetButtonDown("Jump") && scanObject != null)
+            Debug.Log("This is : " + scanObject.name);
+
     }
 }
