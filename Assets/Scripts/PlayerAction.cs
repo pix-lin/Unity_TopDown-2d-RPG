@@ -26,7 +26,6 @@ public class PlayerAction : MonoBehaviour
     private void FixedUpdate()
     {
         //Move
-        
         Vector2 moveVec = isHorizonMove ? new Vector2(h, 0) : new Vector2(0, v);
         rigid.velocity = moveVec * Speed;
 
@@ -39,6 +38,9 @@ public class PlayerAction : MonoBehaviour
             dirVec = Vector2.right;
         else if (hDown && h == -1)
             dirVec = Vector2.left;
+
+        //Ray
+        Debug.DrawRay(rigid.position, dirVec * 0.7f, new Color(0, 1, 0));
     }
 
     // Update is called once per frame
@@ -76,8 +78,5 @@ public class PlayerAction : MonoBehaviour
         }
         else
             anime.SetBool("IsChange", false);
-
-        //Ray
-        Debug.DrawRay(rigid.position, dirVec * 0.7f, new Color(0, 1, 0));
     }
 }
