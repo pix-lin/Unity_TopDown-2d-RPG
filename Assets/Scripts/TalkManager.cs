@@ -31,10 +31,10 @@ public class TalkManager : MonoBehaviour
         portraitData.Add(1000 + 2, portraitArray[2]);
         portraitData.Add(1000 + 3, portraitArray[3]);
 
-        portraitData.Add(2000 + 0, portraitArray[4]);
-        portraitData.Add(2000 + 1, portraitArray[5]);
-        portraitData.Add(2000 + 2, portraitArray[6]);
-        portraitData.Add(2000 + 3, portraitArray[7]);
+        portraitData.Add(2000 + 4, portraitArray[4]);
+        portraitData.Add(2000 + 5, portraitArray[5]);
+        portraitData.Add(2000 + 6, portraitArray[6]);
+        portraitData.Add(2000 + 7, portraitArray[7]);
     }
 
     public string GetTalk(int id, int talkIndex)
