@@ -36,10 +36,12 @@ public class GameManager : MonoBehaviour
         int questTalkIndex = questManager.GetQuestTalkIndex(id);
         string talkData = talkManager.GetTalk(id + questTalkIndex, talkIndex);
 
+        //End Talk
         if (talkData == null)
         {
             isAction = false;
             talkIndex = 0;
+            questManager.CheckQuest();
             return;
         }
 

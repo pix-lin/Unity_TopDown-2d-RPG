@@ -29,7 +29,7 @@ public class TalkManager : MonoBehaviour
 
         //Quest Talk
         talkData.Add(1000 + 10, new string[] { "어서 와:0", "이 마을에는 놀라운 전설이 있다는데:1", "오른쪽 호수 쪽에 루도가 알려줄꺼야.:0" });
-        talkData.Add(2000 + 10, new string[] { "반가워.:5", "놀라운 전설이 뭔지 알고싶니?:6" });
+        talkData.Add(2000 + 11, new string[] { "반가워.:5", "이 호수의 전설을 들으러 온거야?:6", "그럼 일 좀 하나 해주면 좋을텐데..:5", "내 집 근처에 떨어진 동전 좀 주워줬으면 해. 10개만 주워다주면 고맙겠어.:4"});
 
         //Portrait Data
         portraitData.Add(1000 + 0, portraitArray[0]);

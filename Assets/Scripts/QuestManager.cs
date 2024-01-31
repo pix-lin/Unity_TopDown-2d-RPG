@@ -5,7 +5,7 @@ using UnityEngine;
 public class QuestManager : MonoBehaviour
 {
     public int questId;
-
+    public int questActionIndex;
     Dictionary<int, QuestData> questList;
 
     void Awake()
@@ -21,6 +21,11 @@ public class QuestManager : MonoBehaviour
 
     public int GetQuestTalkIndex(int id)
     {
-        return questId;
+        return questId + questActionIndex;
+    }
+
+    public void CheckQuest()
+    {
+        questActionIndex++;
     }
 }
