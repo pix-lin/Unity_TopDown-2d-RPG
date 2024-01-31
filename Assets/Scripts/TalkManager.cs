@@ -5,10 +5,12 @@ using UnityEngine;
 public class TalkManager : MonoBehaviour
 {
     Dictionary<int, string[]> talkData;
+    Dictionary<int, Sprite> portraitData;
 
     void Awake()
     {
         talkData = new Dictionary<int, string[]>();
+        portraitData = new Dictionary<int, Sprite>();
         GenerateData();
     }
 
@@ -22,6 +24,8 @@ public class TalkManager : MonoBehaviour
         talkData.Add(300, new string[] { "누군가 사용했던 흔적이 있는 책상이다." });
         talkData.Add(400, new string[] { "평범한 나무상자다." });
         talkData.Add(500, new string[] { "속이 비어있는 것 같은 박스다." });
+
+        //portraitData.Add(1000, )
 
     }
 

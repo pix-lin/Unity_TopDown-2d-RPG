@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public TalkManager talkManager;
     public GameObject talkSpace;
     public TextMeshProUGUI talkText;
+    public Image portraitImg;
     public GameObject scanObject;
     public bool isAction;
     public int talkIndex;
@@ -42,10 +43,12 @@ public class GameManager : MonoBehaviour
         if (isNPC)
         {
             talkText.text = talkData;
+            portraitImg.color = new Color(1, 1, 1, 1);
         }
         else
         {
             talkText.text = talkData;
+            portraitImg.color = new Color(1, 1, 1, 0);
         }
 
         isAction = true;
