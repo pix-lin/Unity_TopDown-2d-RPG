@@ -6,10 +6,13 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public TalkManager talkManager;
     public GameObject talkSpace;
     public TextMeshProUGUI talkText;
     public GameObject scanObject;
     public bool isAction;
+    public int talkIndex;
+
 
     private void Awake()
     {
@@ -18,17 +21,34 @@ public class GameManager : MonoBehaviour
 
     public void Action(GameObject scanObj)
     {
-        if (isAction) //Exit Action
-        {
-            isAction = false;
-        }
-        else //Enter Action
-        {
-            isAction = true;
-            scanObject = scanObj;
-            talkText.text = "이것의 이름은 " + scanObj.name + "이라고 한다.";
-        }
+        scanObject = scanObj;
+        ObjectData objData = scanObject.GetComponent<ObjectData>();
+        Talk(objData.id, objData.isNPC);
+
         talkSpace.SetActive(isAction);
     }
 
+    void Talk(int id, bool isNPC)
+    {
+        string talkData = talkManager.GetTalk(id, talkIndex);
+
+        if (talkData == null)
+        {
+            isAction = false;
+            talkIndex = 0;
+            return;
+        }
+
+        if (isNPC)
+        {
+            talkText.text = talkData;
+        }
+        else
+        {
+            talkText.text = talkData;
+        }
+
+        isAction = true;
+        talkIndex++;
+    }
 }
