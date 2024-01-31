@@ -17,6 +17,7 @@ public class TalkManager : MonoBehaviour
 
     void GenerateData()
     {
+        //Talk Data
         talkData.Add(1000, new string[] { "안녕?:1", "이곳에 처음 왔구나?:2" });
         talkData.Add(2000, new string[] { "좋은아침?:4", "밥은 먹었니?:6" });
 
@@ -26,6 +27,11 @@ public class TalkManager : MonoBehaviour
         talkData.Add(400, new string[] { "평범한 나무상자다." });
         talkData.Add(500, new string[] { "속이 비어있는 것 같은 박스다." });
 
+        //Quest Talk
+        talkData.Add(1000 + 10, new string[] { "어서 와:0", "이 마을에는 놀라운 전설이 있다는데:1", "오른쪽 호수 쪽에 루도가 알려줄꺼야.:0" });
+        talkData.Add(2000 + 10, new string[] { "반가워.:5", "놀라운 전설이 뭔지 알고싶니?:6" });
+
+        //Portrait Data
         portraitData.Add(1000 + 0, portraitArray[0]);
         portraitData.Add(1000 + 1, portraitArray[1]);
         portraitData.Add(1000 + 2, portraitArray[2]);

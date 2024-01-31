@@ -7,6 +7,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public TalkManager talkManager;
+    public QuestManager questManager;
     public GameObject talkSpace;
     public TextMeshProUGUI talkText;
     public Image portraitImg;
@@ -31,7 +32,9 @@ public class GameManager : MonoBehaviour
 
     void Talk(int id, bool isNPC)
     {
-        string talkData = talkManager.GetTalk(id, talkIndex);
+        //Set Talk Data
+        int questTalkIndex = questManager.GetQuestTalkIndex(id);
+        string talkData = talkManager.GetTalk(id + questTalkIndex, talkIndex);
 
         if (talkData == null)
         {
