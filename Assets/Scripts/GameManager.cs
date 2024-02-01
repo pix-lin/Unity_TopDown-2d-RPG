@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
             isAction = false;
             talkIndex = 0;
             questManager.CheckQuest(id);
+            Debug.Log(questManager.CheckQuest(id));
             return;
         }
 
