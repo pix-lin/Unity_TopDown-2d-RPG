@@ -24,8 +24,11 @@ public class QuestManager : MonoBehaviour
         return questId + questActionIndex;
     }
 
-    public void CheckQuest()
+    public void CheckQuest(int id)
     {
-        questActionIndex++;
+        if(id == questList[questId].npcId[questActionIndex])
+        {
+            questActionIndex++;
+        } 
     }
 }
