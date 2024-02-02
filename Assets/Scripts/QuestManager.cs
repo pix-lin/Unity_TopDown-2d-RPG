@@ -6,7 +6,9 @@ public class QuestManager : MonoBehaviour
 {
     public int questId;
     public int questActionIndex;
-    Dictionary<int, QuestData> questList;
+    public GameObject[] questObject;
+
+    Dictionary<int, QuestData> questList; 
 
     void Awake()
     {
@@ -17,7 +19,7 @@ public class QuestManager : MonoBehaviour
     void GenerateData()
     {
         questList.Add(10, new QuestData("마을 사람들과 대화하기", new int[] { 1000, 2000 }));
-        questList.Add(20, new QuestData("루도의 동전 찾아주기", new int[] { 2000, 1000 }));
+        questList.Add(20, new QuestData("루도의 동전 찾아주기", new int[] { 1000, 2000, 5000, 2000}));
     }
 
     public int GetQuestTalkIndex(int id)
@@ -27,10 +29,15 @@ public class QuestManager : MonoBehaviour
 
     public string CheckQuest(int id)
     {
+        //Next Talk NPC
         if(id == questList[questId].npcId[questActionIndex])
             questActionIndex++;
 
-        if(questActionIndex == questList[questId].npcId.Length)
+        //Control Quest Object
+        ControlObject();
+
+        //Talk Complete & Next Quest 
+        if (questActionIndex == questList[questId].npcId.Length)
             NextQuest();
 
         return questList[questId].questName;
@@ -40,5 +47,20 @@ public class QuestManager : MonoBehaviour
     {
         questId += 10;
         questActionIndex = 0;
+    }
+
+    void ControlObject()
+    {
+        switch (questId)
+        {
+            case 10:
+                if (questActionIndex == 2) //퀘스트1에서의 대화가 모두 끝났을 때
+                    questObject[0].SetActive(true);
+                break;
+            case 20:
+                if (questActionIndex == 3) //동전 먹고난 후 첫 NPC
+                    questObject[0].SetActive(false);
+                break;
+        }
     }
 }
