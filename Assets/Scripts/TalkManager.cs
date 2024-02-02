@@ -29,10 +29,12 @@ public class TalkManager : MonoBehaviour
 
         //Quest Talk
         talkData.Add(1000 + 10, new string[] { "어서 와:0", "이 마을에는 놀라운 전설이 있다는데:1", "오른쪽 호수 쪽에 루도가 알려줄꺼야.:0" });
+        talkData.Add(1000 + 11, new string[] { "아직 못만났어?:0", "루도는 오른쪽 호수 쪽에 있어.:1"});
         talkData.Add(2000 + 11, new string[] { "반가워.:5", "이 호수의 전설을 들으러 온거야?:6", "그럼 일 좀 하나 해주면 좋을텐데..:5", "내 집 근처에 떨어진 동전 좀 주워줬으면 해. 10개만 주워다주면 고맙겠어.:4"});
 
         talkData.Add(1000 + 20, new string[] { "루도의 동전?:0", "돈을 흘리고 다니면 못쓰지!:2", "나중에 루도에게 한마디 해야겠어.:3"});
         talkData.Add(2000 + 21, new string[] { "찾으면 꼭 좀 가져다줘:4" });
+        talkData.Add(2000 + 22, new string[] { "아마 동전은 집 근처에 있을거야.:4" });
         talkData.Add(5000 + 22, new string[] { "근처에서 동전을 찾았다." });
         talkData.Add(2000 + 23, new string[] { "엇 찾아줘서 고마워:6"});
 
@@ -50,6 +52,15 @@ public class TalkManager : MonoBehaviour
 
     public string GetTalk(int id, int talkIndex)
     {
+        if (!talkData.ContainsKey(id))
+        {
+            //해당 퀘스트 진행 중 순서 대사가 없을 때
+            if (talkIndex == talkData[id - id % 10].Length)
+                return null;
+            else
+                return talkData[id - id % 10][talkIndex];
+        }
+
         if (talkIndex == talkData[id].Length)
             return null;
        else 
