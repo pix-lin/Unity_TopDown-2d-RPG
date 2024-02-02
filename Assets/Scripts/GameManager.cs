@@ -21,6 +21,11 @@ public class GameManager : MonoBehaviour
         talkSpace.SetActive(false);
     }
 
+
+    private void Start()
+    {
+        Debug.Log(questManager.CheckQuest());
+    }
     public void Action(GameObject scanObj)
     {
         scanObject = scanObj;

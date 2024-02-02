@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: db76f2be4bbbd8a4482c41534b2c7e22
+guid: 6c12e1f5f6676e549b0fd7669cea3a4e
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,10 +9,8 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Kartrider OTF
-  fallbackFontReferences:
-  - {fileID: 12800000, guid: e9e136f145141414aa1fa46f0b7e5508, type: 3}
-  - {fileID: 12800000, guid: 8119d82a7d6285940bcc2b066d022070, type: 3}
+  - Silver
+  fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
