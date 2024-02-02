@@ -27,6 +27,8 @@ public class TalkManager : MonoBehaviour
         talkData.Add(400, new string[] { "평범한 나무상자다." });
         talkData.Add(500, new string[] { "속이 비어있는 것 같은 박스다." });
 
+        //talkData.Add(5000, new string[] { "동전을 발견했다." });
+
         //Quest Talk
         talkData.Add(1000 + 10, new string[] { "어서 와:0", "이 마을에는 놀라운 전설이 있다는데:1", "오른쪽 호수 쪽에 루도가 알려줄꺼야.:0" });
         talkData.Add(1000 + 11, new string[] { "아직 못만났어?:0", "루도는 오른쪽 호수 쪽에 있어.:1"});
