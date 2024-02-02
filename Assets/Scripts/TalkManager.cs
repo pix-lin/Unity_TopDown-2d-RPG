@@ -54,16 +54,30 @@ public class TalkManager : MonoBehaviour
     {
         if (!talkData.ContainsKey(id))
         {
-            //해당 퀘스트 진행 중 순서 대사가 없을 때
-            if (talkIndex == talkData[id - id % 10].Length)
-                return null;
+            if (!talkData.ContainsKey(id - id % 10))
+            {
+                //퀘스트 맨 처음 대사마저 없을 때
+                //기본 대사를 가지고 온다.
+                if (talkIndex == talkData[id - id % 100].Length)
+                    return null;
+                else
+                    return talkData[id - id % 100][talkIndex];
+            }
             else
-                return talkData[id - id % 10][talkIndex];
+            {
+                //해당 퀘스트 진행 중 현재 대사가 없을 때
+                //이전 퀘스트 대사를 가지고 온다.
+                if (talkIndex == talkData[id - id % 10].Length)
+                    return null;
+                else
+                    return talkData[id - id % 10][talkIndex];
+            }   
         }
 
+        //현재 퀘스트 대사 반환
         if (talkIndex == talkData[id].Length)
             return null;
-       else 
+        else 
             return talkData[id][talkIndex];
     }
 
