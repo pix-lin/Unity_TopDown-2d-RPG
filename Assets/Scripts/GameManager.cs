@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
 {
     public TalkManager talkManager;
     public QuestManager questManager;
-    public GameObject talkSpace;
+    public Animator talkSpace;
+    public Animator portraitAnime;
+    public Sprite prePortrait;
     public TextMeshProUGUI talkText;
     public Image portraitImg;
     public GameObject scanObject;
@@ -18,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        talkSpace.SetActive(false);
+        talkSpace.SetBool("IsSHow", false);
     }
 
 
@@ -28,11 +30,13 @@ public class GameManager : MonoBehaviour
     }
     public void Action(GameObject scanObj)
     {
+        //Get Current Object
         scanObject = scanObj;
         ObjectData objData = scanObject.GetComponent<ObjectData>();
         Talk(objData.id, objData.isNPC);
 
-        talkSpace.SetActive(isAction);
+        //Visible Talk for Action
+        talkSpace.SetBool("IsShow", isAction);
     }
 
     void Talk(int id, bool isNPC)
@@ -51,12 +55,21 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        //Continue Talk
         if (isNPC)
         {
             talkText.text = talkData.Split(':')[0];
 
+            //Show Portrait
             portraitImg.sprite = talkManager.GetPortrait(id, int.Parse(talkData.Split(':')[1]));
             portraitImg.color = new Color(1, 1, 1, 1);
+
+            if(prePortrait != portraitImg.sprite)
+            {
+                portraitAnime.SetTrigger("DoEffect");
+                prePortrait = portraitImg.sprite;
+            }
+            
         }
         else
         {
