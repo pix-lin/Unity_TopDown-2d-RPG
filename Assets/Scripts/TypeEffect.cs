@@ -9,6 +9,7 @@ public class TypeEffect : MonoBehaviour
     public int CharPerSeconds;
     string targetMsg;
     TextMeshProUGUI msgText;
+    public GameObject EndCursor;
     int index;
 
     public void SetMsg(string msg)
@@ -21,20 +22,26 @@ public class TypeEffect : MonoBehaviour
     {
         msgText.text = "";
         index = 0;
+        EndCursor.SetActive(false);
+
+        Invoke("Effecting", 1 / CharPerSeconds);
     }
 
     void Effecting()
     {
+        if(msgText.text == targetMsg)
+        {
+            EffectEnd();
+            return;
+        }
+        msgText.text += targetMsg[index];
         index++;
+
+        Invoke("Effecting", 1 / CharPerSeconds);
     }
 
     void EffectEnd()
     {
-
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+        EndCursor.SetActive(true);
     }
 }

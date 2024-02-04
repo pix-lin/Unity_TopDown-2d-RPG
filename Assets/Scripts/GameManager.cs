@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public Animator talkSpace;
     public Animator portraitAnime;
     public Sprite prePortrait;
-    public TextMeshProUGUI talkText;
+    public TypeEffect talk;
     public Image portraitImg;
     public GameObject scanObject;
     public bool isAction;
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         //Continue Talk
         if (isNPC)
         {
-            talkText.text = talkData.Split(':')[0];
+            talk.SetMsg(talkData.Split(':')[0]);
 
             //Show Portrait
             portraitImg.sprite = talkManager.GetPortrait(id, int.Parse(talkData.Split(':')[1]));
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            talkText.text = talkData;
+            talk.SetMsg(talkData);
             portraitImg.color = new Color(1, 1, 1, 0);
         }
 
