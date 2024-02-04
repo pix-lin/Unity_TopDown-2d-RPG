@@ -46,7 +46,7 @@ public class TypeEffect : MonoBehaviour
 
         //Start Animation
         interval = 1.0f / CharPerSeconds;
-        Debug.Log(interval);
+        //Debug.Log(interval);
 
         isAnime = true;
         Invoke("Effecting", interval);
