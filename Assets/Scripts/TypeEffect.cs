@@ -7,15 +7,19 @@ using TMPro;
 public class TypeEffect : MonoBehaviour
 {
     public int CharPerSeconds;
+    public GameObject EndCursor;
+
     string targetMsg;
     TextMeshProUGUI msgText;
-    public GameObject EndCursor;
+    AudioSource audioSource;
+    
     int index;
     float interval;
 
     private void Awake()
     {
         msgText = GetComponent<TextMeshProUGUI>();
+        audioSource = GetComponent<AudioSource>();
     }
     public void SetMsg(string msg)
     {
@@ -43,6 +47,11 @@ public class TypeEffect : MonoBehaviour
             return;
         }
         msgText.text += targetMsg[index];
+
+        //Sounding
+        if (targetMsg[index] != ' ' || targetMsg[index] != '.')
+            audioSource.Play();
+
         index++;
 
         Invoke("Effecting", interval);
