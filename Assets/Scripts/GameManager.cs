@@ -41,9 +41,22 @@ public class GameManager : MonoBehaviour
 
     void Talk(int id, bool isNPC)
     {
+
+        int questTalkIndex = 0;
+        string talkData = "";
+
         //Set Talk Data
-        int questTalkIndex = questManager.GetQuestTalkIndex(id);
-        string talkData = talkManager.GetTalk(id + questTalkIndex, talkIndex);
+        if (talk.isAnime)
+        {
+            talk.SetMsg("");
+            return;
+        }
+   
+        else
+        {
+            questTalkIndex = questManager.GetQuestTalkIndex(id);
+            talkData = talkManager.GetTalk(id + questTalkIndex, talkIndex);
+        }
 
         //End Talk
         if (talkData == null)
@@ -51,7 +64,7 @@ public class GameManager : MonoBehaviour
             isAction = false;
             talkIndex = 0;
             questManager.CheckQuest(id);
-            Debug.Log(questManager.CheckQuest(id));
+            Debug.Log(questManager.CheckQuest());
             return;
         }
 

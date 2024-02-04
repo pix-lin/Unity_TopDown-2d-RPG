@@ -8,6 +8,7 @@ public class TypeEffect : MonoBehaviour
 {
     public int CharPerSeconds;
     public GameObject EndCursor;
+    public bool isAnime;
 
     string targetMsg;
     TextMeshProUGUI msgText;
@@ -23,8 +24,18 @@ public class TypeEffect : MonoBehaviour
     }
     public void SetMsg(string msg)
     {
-        targetMsg = msg;
-        EffectStart();
+        if (isAnime)
+        {
+            CancelInvoke();
+            msgText.text = targetMsg;
+            EffectEnd();
+        }
+
+        else
+        {
+            targetMsg = msg;
+            EffectStart();
+        }
     }
 
     void EffectStart()
@@ -36,6 +47,8 @@ public class TypeEffect : MonoBehaviour
         //Start Animation
         interval = 1.0f / CharPerSeconds;
         Debug.Log(interval);
+
+        isAnime = true;
         Invoke("Effecting", interval);
     }
 
@@ -59,6 +72,7 @@ public class TypeEffect : MonoBehaviour
 
     void EffectEnd()
     {
+        isAnime = false;
         EndCursor.SetActive(true);
     }
 }

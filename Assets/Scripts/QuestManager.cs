@@ -28,7 +28,7 @@ public class QuestManager : MonoBehaviour
         return questId + questActionIndex;
     }
 
-    public string CheckQuest(int id)
+    public void CheckQuest(int id)
     {
         //Next Talk NPC
         if(id == questList[questId].npcId[questActionIndex])
@@ -41,7 +41,7 @@ public class QuestManager : MonoBehaviour
         if (questActionIndex == questList[questId].npcId.Length)
             NextQuest();
 
-        return questList[questId].questName;
+        return;
     }
 
     public string CheckQuest()
