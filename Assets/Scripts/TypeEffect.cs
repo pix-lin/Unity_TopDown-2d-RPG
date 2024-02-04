@@ -11,7 +11,12 @@ public class TypeEffect : MonoBehaviour
     TextMeshProUGUI msgText;
     public GameObject EndCursor;
     int index;
+    float interval;
 
+    private void Awake()
+    {
+        msgText = GetComponent<TextMeshProUGUI>();
+    }
     public void SetMsg(string msg)
     {
         targetMsg = msg;
@@ -24,7 +29,10 @@ public class TypeEffect : MonoBehaviour
         index = 0;
         EndCursor.SetActive(false);
 
-        Invoke("Effecting", 1 / CharPerSeconds);
+        //Start Animation
+        interval = 1.0f / CharPerSeconds;
+        Debug.Log(interval);
+        Invoke("Effecting", interval);
     }
 
     void Effecting()
@@ -37,7 +45,7 @@ public class TypeEffect : MonoBehaviour
         msgText.text += targetMsg[index];
         index++;
 
-        Invoke("Effecting", 1 / CharPerSeconds);
+        Invoke("Effecting", interval);
     }
 
     void EffectEnd()
