@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public TypeEffect talk;
     public Image portraitImg;
     public GameObject scanObject;
+    public GameObject menuSet;
     public bool isAction;
     public int talkIndex;
 
@@ -27,6 +28,12 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Debug.Log(questManager.CheckQuest());
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+            menuSet.SetActive(true);
     }
     public void Action(GameObject scanObj)
     {
