@@ -65,7 +65,9 @@ public class QuestManager : MonoBehaviour
                     questObject[0].SetActive(true);
                 break;
             case 20:
-                if (questActionIndex == 3) //동전 먹고난 후 첫 NPC
+                if (questActionIndex <= 2)
+                    questObject[0].SetActive(true);
+                else if (questActionIndex == 3) //동전 먹고난 후 첫 NPC
                     questObject[0].SetActive(false);
                 break;
         }
