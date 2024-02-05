@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public Image portraitImg;
     public GameObject scanObject;
     public GameObject menuSet;
+    public GameObject player;
     public TextMeshProUGUI questText;
     public bool isAction;
     public int talkIndex;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        GameLoad();
         questText.text = questManager.CheckQuest();
     }
 
@@ -112,6 +114,36 @@ public class GameManager : MonoBehaviour
 
         isAction = true;
         talkIndex++;
+    }
+
+    public void GameSave()
+    {
+        PlayerPrefs.SetFloat("PlayerX", player.transform.position.x);
+        PlayerPrefs.SetFloat("PlayerY", player.transform.position.x);
+        PlayerPrefs.SetInt("QuestId", questManager.questId);
+        PlayerPrefs.SetInt("QuestActionIndex", questManager.questActionIndex);
+        PlayerPrefs.Save();
+
+        menuSet.SetActive(false);
+        //player.x, player.y
+        //Quest Id
+        //Qurest Action Index
+    }
+
+    public void GameLoad()
+    {
+        if (!PlayerPrefs.HasKey("PlayerX"))
+            return;
+
+        float x = PlayerPrefs.GetFloat("PlayerX");
+        float y = PlayerPrefs.GetFloat("PlayerY");
+        int questId = PlayerPrefs.GetInt("QuestId");
+        int questActionIndex = PlayerPrefs.GetInt("QuestActionIndex");
+
+
+        player.transform.position = new Vector3(x, y, 0);
+        questManager.questId = questId;
+        questManager.questActionIndex = questActionIndex;
     }
 
     public void GameExit()
