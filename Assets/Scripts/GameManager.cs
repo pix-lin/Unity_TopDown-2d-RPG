@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public Image portraitImg;
     public GameObject scanObject;
     public GameObject menuSet;
+    public TextMeshProUGUI questText;
     public bool isAction;
     public int talkIndex;
 
@@ -24,16 +25,28 @@ public class GameManager : MonoBehaviour
         talkSpace.SetBool("IsSHow", false);
     }
 
-
     private void Start()
     {
-        Debug.Log(questManager.CheckQuest());
+        questText.text = questManager.CheckQuest();
     }
 
     private void Update()
     {
+        //Sub Menu
         if (Input.GetButtonDown("Cancel"))
-            menuSet.SetActive(true);
+        {
+            if (menuSet.activeSelf)
+            {
+                //Time.timeScale = 1;
+                menuSet.SetActive(false);
+            }  
+            else
+            {
+                menuSet.SetActive(true);
+                //Time.timeScale = 0;
+            } 
+        }
+           
     }
     public void Action(GameObject scanObj)
     {
@@ -71,7 +84,7 @@ public class GameManager : MonoBehaviour
             isAction = false;
             talkIndex = 0;
             questManager.CheckQuest(id);
-            Debug.Log(questManager.CheckQuest());
+            questText.text = questManager.CheckQuest();
             return;
         }
 
@@ -99,5 +112,10 @@ public class GameManager : MonoBehaviour
 
         isAction = true;
         talkIndex++;
+    }
+
+    public void GameExit()
+    {
+        Application.Quit();
     }
 }
