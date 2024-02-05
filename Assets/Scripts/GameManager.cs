@@ -144,6 +144,7 @@ public class GameManager : MonoBehaviour
         player.transform.position = new Vector3(x, y, 0);
         questManager.questId = questId;
         questManager.questActionIndex = questActionIndex;
+        questManager.ControlObject();
     }
 
     public void GameExit()

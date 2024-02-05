@@ -56,7 +56,7 @@ public class QuestManager : MonoBehaviour
         questActionIndex = 0;
     }
 
-    void ControlObject()
+    public void ControlObject()
     {
         switch (questId)
         {
