@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        talkSpace.SetBool("IsSHow", false);
+        talkSpace.SetBool("IsShow", false);
     }
 
     private void Start()
