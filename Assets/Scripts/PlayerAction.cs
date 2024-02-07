@@ -148,6 +148,13 @@ public class PlayerAction : MonoBehaviour
                 right_Value = 1;
                 right_Down = true;
                 break;
+             case "A":
+                if (scanObject != null)
+                    gameManager.Action(scanObject);
+                break;
+            case "C":
+                gameManager.SubMenuActive();
+                break;
         }
     }
 

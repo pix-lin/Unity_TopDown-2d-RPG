@@ -37,19 +37,24 @@ public class GameManager : MonoBehaviour
         //Sub Menu
         if (Input.GetButtonDown("Cancel"))
         {
-            if (menuSet.activeSelf)
-            {
-                //Time.timeScale = 1;
-                menuSet.SetActive(false);
-            }  
-            else
-            {
-                menuSet.SetActive(true);
-                //Time.timeScale = 0;
-            } 
-        }
-           
+            SubMenuActive(); 
+        }   
     }
+
+    public void SubMenuActive()
+    {
+        if (menuSet.activeSelf)
+        {
+            //Time.timeScale = 1;
+            menuSet.SetActive(false);
+        }
+        else
+        {
+            menuSet.SetActive(true);
+            //Time.timeScale = 0;
+        }
+    }
+
     public void Action(GameObject scanObj)
     {
         //Get Current Object
