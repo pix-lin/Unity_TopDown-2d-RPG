@@ -19,6 +19,21 @@ public class PlayerAction : MonoBehaviour
     Animator anime;
     GameObject scanObject;
 
+    //Screen Button Control
+    int up_Value;
+    int down_Value;
+    int left_Value;
+    int right_Value;
+
+    bool up_Down;
+    bool down_Down;
+    bool left_Down;
+    bool right_Down;
+    bool up_Up;
+    bool down_Up;
+    bool left_Up;
+    bool right_Up;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -46,15 +61,24 @@ public class PlayerAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Move Value
-        h = gameManager.isAction ? 0 : Input.GetAxisRaw("Horizontal");
-        v = gameManager.isAction ? 0 : Input.GetAxisRaw("Vertical");
+        //Move Value PC & Mobile
+        h = gameManager.isAction ? 0 : Input.GetAxisRaw("Horizontal") + right_Value + left_Value;
+        v = gameManager.isAction ? 0 : Input.GetAxisRaw("Vertical") + up_Value + down_Value;
 
         //Check Button Down & Up
+        //PC
         hDown = gameManager.isAction ? false : Input.GetButtonDown("Horizontal");
         vDown = gameManager.isAction ? false : Input.GetButtonDown("Vertical");
         hUp = gameManager.isAction ? false : Input.GetButtonUp("Horizontal");
         vUp = gameManager.isAction ? false : Input.GetButtonUp("Vertical");
+
+        //Check Button Down & Up
+        //PC & Mobile
+        hDown = gameManager.isAction ? false : Input.GetButtonDown("Horizontal") || left_Down || right_Down;
+        vDown = gameManager.isAction ? false : Input.GetButtonDown("Vertical") || up_Down || down_Down;
+        hUp = gameManager.isAction ? false : Input.GetButtonUp("Horizontal") || left_Up || right_Up;
+        vUp = gameManager.isAction ? false : Input.GetButtonUp("Vertical") || up_Up || down_Up;
+
 
         //Check Horizontal Move
         if (hDown)
@@ -93,5 +117,60 @@ public class PlayerAction : MonoBehaviour
         if (Input.GetButtonDown("Jump") && scanObject != null)
             gameManager.Action(scanObject);
 
+        //Mobile Variable Init
+        up_Down = false;
+        down_Down = false;
+        left_Down = false;
+        right_Down = false;
+        up_Up = false;
+        down_Up = false;
+        left_Up = false;
+        right_Up = false;
+    }
+
+    public void ButtonDown(string type)
+    {
+        switch (type)
+        {
+            case "U":
+                up_Value = 1;
+                up_Down = true;
+                break;
+            case "D":
+                down_Value = -1;
+                down_Down = true;
+                break;
+            case "L":
+                left_Value = -1;
+                left_Down = true;
+                break;
+            case "R":
+                right_Value = 1;
+                right_Down = true;
+                break;
+        }
+    }
+
+    public void ButtonUp(string type)
+    {
+        switch (type)
+        {
+            case "U":
+                up_Value = 0;
+                up_Up = true;
+                break;
+            case "D":
+                down_Value = 0;
+                down_Up = true;
+                break;
+            case "L":
+                left_Value = 0;
+                left_Up = true;
+                break;
+            case "R":
+                right_Value = 0;
+                right_Up = true;
+                break;
+        }
     }
 }
