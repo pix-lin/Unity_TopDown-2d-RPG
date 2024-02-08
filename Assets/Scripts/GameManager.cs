@@ -8,10 +8,12 @@ public class GameManager : MonoBehaviour
 {
     public TalkManager talkManager;
     public QuestManager questManager;
-    public Animator talkSpace;
+    public Animator talkSpace_Npc;
+    public Animator talkSpace_Object;
     public Animator portraitAnime;
     public Sprite prePortrait;
-    public TypeEffect talk;
+    public TypeEffect talk_NPC;
+    public TypeEffect talk_Object;
     public Image portraitImg;
     public GameObject scanObject;
     public GameObject menuSet;
@@ -23,7 +25,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        talkSpace.SetBool("IsShow", false);
+        talkSpace_Npc.SetBool("IsShow", false);
+        talkSpace_Object.SetBool("IsShow", false);
     }
 
     private void Start()
@@ -63,7 +66,10 @@ public class GameManager : MonoBehaviour
         Talk(objData.id, objData.isNPC);
 
         //Visible Talk for Action
-        talkSpace.SetBool("IsShow", isAction);
+        if(objData.isNPC)
+            talkSpace_Npc.SetBool("IsShow", isAction);
+        else
+            talkSpace_Object.SetBool("IsShow", isAction);
     }
 
     void Talk(int id, bool isNPC)
@@ -74,9 +80,9 @@ public class GameManager : MonoBehaviour
 
         //Set Talk Data
         //Skip
-        if (talk.isAnime)
+        if (talk_NPC.isAnime)
         {
-            talk.SetMsg("");
+            talk_NPC.SetMsg("");
             return;
         }
         
@@ -100,7 +106,7 @@ public class GameManager : MonoBehaviour
         //Continue Talk
         if (isNPC)
         {
-            talk.SetMsg(talkData.Split(':')[0]);
+            talk_NPC.SetMsg(talkData.Split(':')[0]);
 
             //Show Portrait
             portraitImg.sprite = talkManager.GetPortrait(id, int.Parse(talkData.Split(':')[1]));
@@ -115,8 +121,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            talk.SetMsg(talkData);
-            portraitImg.color = new Color(1, 1, 1, 0);
+            talk_Object.SetMsg(talkData);
+            //portraitImg.color = new Color(1, 1, 1, 0);
         }
 
         isAction = true;

@@ -11,7 +11,7 @@ public class TypeEffect : MonoBehaviour
     public bool isAnime;
 
     string targetMsg;
-    TextMeshProUGUI msgText;
+    public TextMeshProUGUI msgText;
     AudioSource audioSource;
     
     int index;
