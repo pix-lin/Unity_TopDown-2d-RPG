@@ -73,12 +73,14 @@ public class GameManager : MonoBehaviour
         string talkData = "";
 
         //Set Talk Data
+        //Skip
         if (talk.isAnime)
         {
             talk.SetMsg("");
             return;
         }
-   
+        
+        //Non-Skip
         else
         {
             questTalkIndex = questManager.GetQuestTalkIndex(id);
