@@ -7,12 +7,16 @@ public class QuestManager : MonoBehaviour
     public int questId;
     public int questActionIndex;
     public GameObject[] questObject;
+    public QuestItemData questData;
+    public PlayerAction player;
 
     Dictionary<int, QuestData> questList; 
 
     void Awake()
     {
         questList = new Dictionary<int, QuestData>();
+        questData = GetComponent<QuestItemData>();
+
         GenerateData();
     }
 

@@ -13,11 +13,13 @@ public class PlayerAction : MonoBehaviour
     bool vUp;
     bool isHorizonMove;
     public GameManager gameManager;
+    public QuestManager questManager;
     Vector2 dirVec;
 
     Rigidbody2D rigid;
     Animator anime;
     GameObject scanObject;
+    public RaycastHit2D rayHit;
 
     //Screen Button Control
     int up_Value;
@@ -49,7 +51,7 @@ public class PlayerAction : MonoBehaviour
 
         //Ray
         Debug.DrawRay(rigid.position, dirVec * 0.7f, new Color(0, 1, 0));
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("Object"));
+        rayHit = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("Object"));
 
         if (rayHit.collider != null)
             scanObject = rayHit.collider.gameObject;
@@ -127,7 +129,18 @@ public class PlayerAction : MonoBehaviour
         left_Up = false;
         right_Up = false;
     }
-
+ 
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Quest Item")
+        {
+            questManager.questActionIndex = 3;
+            questManager.questObject[0].SetActive(false);
+            //Debug.Log(questManager.questObject[0].activeSelf);
+        }
+            
+    }
+    
     public void ButtonDown(string type)
     {
         switch (type)
