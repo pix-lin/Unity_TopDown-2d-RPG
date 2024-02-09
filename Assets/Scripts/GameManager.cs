@@ -66,10 +66,11 @@ public class GameManager : MonoBehaviour
         Talk(objData.id, objData.isNPC);
 
         //Visible Talk for Action
-        if(objData.isNPC)
+        if (objData.isNPC)
             talkSpace_Npc.SetBool("IsShow", isAction);
         else
             talkSpace_Object.SetBool("IsShow", isAction);
+
     }
 
     void Talk(int id, bool isNPC)
@@ -85,7 +86,13 @@ public class GameManager : MonoBehaviour
             talk_NPC.SetMsg("");
             return;
         }
-        
+
+        else if (talk_Object.isAnime)
+        {
+            talk_Object.SetMsg("");
+            return;
+        }
+
         //Non-Skip
         else
         {
