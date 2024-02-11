@@ -17,7 +17,7 @@ public class PlayerAction : MonoBehaviour
     Vector2 dirVec;
 
     Rigidbody2D rigid;
-    Animator anime;
+    public Animator anime;
     GameObject scanObject;
     public RaycastHit2D rayHit;
 
@@ -63,71 +63,76 @@ public class PlayerAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Move Value PC & Mobile
-        h = gameManager.isAction ? 0 : Input.GetAxisRaw("Horizontal") + right_Value + left_Value;
-        v = gameManager.isAction ? 0 : Input.GetAxisRaw("Vertical") + up_Value + down_Value;
-
-        //Check Button Down & Up
-        //PC
-        hDown = gameManager.isAction ? false : Input.GetButtonDown("Horizontal");
-        vDown = gameManager.isAction ? false : Input.GetButtonDown("Vertical");
-        hUp = gameManager.isAction ? false : Input.GetButtonUp("Horizontal");
-        vUp = gameManager.isAction ? false : Input.GetButtonUp("Vertical");
-
-        //Check Button Down & Up
-        //PC & Mobile
-        hDown = gameManager.isAction ? false : Input.GetButtonDown("Horizontal") || left_Down || right_Down;
-        vDown = gameManager.isAction ? false : Input.GetButtonDown("Vertical") || up_Down || down_Down;
-        hUp = gameManager.isAction ? false : Input.GetButtonUp("Horizontal") || left_Up || right_Up;
-        vUp = gameManager.isAction ? false : Input.GetButtonUp("Vertical") || up_Up || down_Up;
-
-
-        //Check Horizontal Move
-        if (hDown)
-            isHorizonMove = true;
-        else if (vDown)
-            isHorizonMove = false;
-        else if (hUp || vUp)
-            isHorizonMove = h != 0;
-
-        //Direction
-        if (vDown && v == 1)
-            dirVec = Vector2.up;
-        else if (vDown && v == -1)
-            dirVec = Vector2.down;
-        else if (hDown && h == 1)
-            dirVec = Vector2.right;
-        else if (hDown && h == -1)
-            dirVec = Vector2.left;
-
-        //Animation
-        if (anime.GetInteger("hAxisRaw") != h)
+        if (!gameManager.isSubMenu)
         {
-            anime.SetBool("IsChange", true);
-            anime.SetInteger("hAxisRaw", (int)h);
+            //Move Value PC & Mobile
+            h = gameManager.isAction ? 0 : Input.GetAxisRaw("Horizontal") + right_Value + left_Value;
+            v = gameManager.isAction ? 0 : Input.GetAxisRaw("Vertical") + up_Value + down_Value;
+
+            /*
+            //Check Button Down & Up
+            //PC
+            hDown = gameManager.isAction ? false : Input.GetButtonDown("Horizontal");
+            vDown = gameManager.isAction ? false : Input.GetButtonDown("Vertical");
+            hUp = gameManager.isAction ? false : Input.GetButtonUp("Horizontal");
+            vUp = gameManager.isAction ? false : Input.GetButtonUp("Vertical");
+            */
+
+            //Check Button Down & Up
+            //PC & Mobile
+            hDown = gameManager.isAction ? false : Input.GetButtonDown("Horizontal") || left_Down || right_Down;
+            vDown = gameManager.isAction ? false : Input.GetButtonDown("Vertical") || up_Down || down_Down;
+            hUp = gameManager.isAction ? false : Input.GetButtonUp("Horizontal") || left_Up || right_Up;
+            vUp = gameManager.isAction ? false : Input.GetButtonUp("Vertical") || up_Up || down_Up;
+
+
+            //Check Horizontal Move
+            if (hDown)
+                isHorizonMove = true;
+            else if (vDown)
+                isHorizonMove = false;
+            else if (hUp || vUp)
+                isHorizonMove = h != 0;
+
+            //Direction
+            if (vDown && v == 1)
+                dirVec = Vector2.up;
+            else if (vDown && v == -1)
+                dirVec = Vector2.down;
+            else if (hDown && h == 1)
+                dirVec = Vector2.right;
+            else if (hDown && h == -1)
+                dirVec = Vector2.left;
+
+            //Animation
+            if (anime.GetInteger("hAxisRaw") != h)
+            {
+                anime.SetBool("IsChange", true);
+                anime.SetInteger("hAxisRaw", (int)h);
+            }
+
+            else if (anime.GetInteger("vAxisRaw") != v)
+            {
+                anime.SetBool("IsChange", true);
+                anime.SetInteger("vAxisRaw", (int)v);
+            }
+            else
+                anime.SetBool("IsChange", false);
+
+            //Scan Object
+            if (Input.GetButtonDown("Jump") && scanObject != null)
+                gameManager.Action(scanObject);
+
+            //Mobile Variable Init
+            up_Down = false;
+            down_Down = false;
+            left_Down = false;
+            right_Down = false;
+            up_Up = false;
+            down_Up = false;
+            left_Up = false;
+            right_Up = false;
         }
-
-        else if (anime.GetInteger("vAxisRaw") != v)
-        {
-            anime.SetBool("IsChange", true);
-            anime.SetInteger("vAxisRaw", (int)v);
-        }
-        else
-            anime.SetBool("IsChange", false);
-
-        //Scan Object
-        if (Input.GetButtonDown("Jump") && scanObject != null)
-            gameManager.Action(scanObject);
-
-        //Mobile Variable Init
-        up_Down = false;
-        down_Down = false;
-        left_Down = false;
-        right_Down = false;
-        up_Up = false;
-        down_Up = false;
-        left_Up = false;
-        right_Up = false;
     }
  
     public void OnTriggerEnter2D(Collider2D collision)

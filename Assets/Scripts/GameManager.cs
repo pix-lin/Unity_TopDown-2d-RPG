@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject menuSet;
     public GameObject player;
     public TextMeshProUGUI questText;
+    public bool isSubMenu;
     public bool isAction;
     public int talkIndex;
 
@@ -46,15 +47,17 @@ public class GameManager : MonoBehaviour
 
     public void SubMenuActive()
     {
-        if (menuSet.activeSelf)
+        if (menuSet.activeSelf) //서브메뉴 닫기
         {
-            //Time.timeScale = 1;
+            Time.timeScale = 1;
             menuSet.SetActive(false);
+            isSubMenu = false;
         }
-        else
+        else //서브메뉴 열기
         {
             menuSet.SetActive(true);
-            //Time.timeScale = 0;
+            Time.timeScale = 0;
+            isSubMenu = true;
         }
     }
 
