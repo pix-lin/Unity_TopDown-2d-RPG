@@ -19,10 +19,10 @@ public class GameManager : MonoBehaviour
     public GameObject menuSet;
     public GameObject player;
     public TextMeshProUGUI questText;
+    public TextMeshProUGUI npcName;
     public bool isSubMenu;
     public bool isAction;
     public int talkIndex;
-
 
     private void Awake()
     {
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         //Get Current Object
         scanObject = scanObj;
         ObjectData objData = scanObject.GetComponent<ObjectData>();
-        Talk(objData.id, objData.isNPC);
+        Talk(objData.id, objData.isNPC, objData.name);
 
         //Visible Talk for Action
         if (objData.isNPC)
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void Talk(int id, bool isNPC)
+    void Talk(int id, bool isNPC, string name)
     {
 
         int questTalkIndex = 0;
@@ -118,6 +118,21 @@ public class GameManager : MonoBehaviour
         {
             talk_NPC.SetMsg(talkData.Split(':')[0]);
 
+            //Show Name
+            if (id == 1000)
+            {
+                npcName.text = "<color=#47C83E>" + name + "</color>";
+                //npcName.text = name;
+                //npcName.color = new Color(1, 1, 0.7f, 1);
+                //npcName.color = new Color32(255, 1, 128, 255);
+            }
+                
+            else if (id == 2000)
+            {
+                npcName.text = "<color=#A566FF>" + name + "</color>";
+            }
+                
+
             //Show Portrait
             portraitImg.sprite = talkManager.GetPortrait(id, int.Parse(talkData.Split(':')[1]));
             portraitImg.color = new Color(1, 1, 1, 1);
@@ -147,6 +162,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("QuestActionIndex", questManager.questActionIndex);
         PlayerPrefs.Save();
 
+        GameContinue();
         menuSet.SetActive(false);
         //player.x, player.y
         //Quest Id
@@ -170,8 +186,41 @@ public class GameManager : MonoBehaviour
         questManager.ControlObject();
     }
 
+    public void GameReset()
+    {
+        PlayerPrefs.SetFloat("PlayerX", -10.0f);
+        PlayerPrefs.SetFloat("PlayerY", 0.0f);
+        PlayerPrefs.SetInt("QuestId", 10);
+        PlayerPrefs.SetInt("QuestActionIndex", 0);
+        PlayerPrefs.Save();
+
+        //if (!PlayerPrefs.HasKey("PlayerX"))
+            //return;
+
+        float x = PlayerPrefs.GetFloat("PlayerX");
+        float y = PlayerPrefs.GetFloat("PlayerY");
+        int questId = PlayerPrefs.GetInt("QuestId");
+        int questActionIndex = PlayerPrefs.GetInt("QuestActionIndex");
+
+
+        player.transform.position = new Vector3(x, y, 0);
+        questManager.questId = questId;
+        questManager.questActionIndex = questActionIndex;
+        questManager.ControlObject();
+        questText.text = questManager.questList[questId].questName;
+
+        GameContinue();
+        menuSet.SetActive(false);
+    }
+
     public void GameExit()
     {
         Application.Quit();
+    }
+
+    public void GameContinue()
+    {
+        Time.timeScale = 1;
+        isSubMenu = false;
     }
 }

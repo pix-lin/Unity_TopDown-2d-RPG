@@ -10,7 +10,7 @@ public class QuestManager : MonoBehaviour
     public QuestItemData questData;
     public PlayerAction player;
 
-    Dictionary<int, QuestData> questList; 
+    public Dictionary<int, QuestData> questList; 
 
     void Awake()
     {
